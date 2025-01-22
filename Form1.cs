@@ -159,14 +159,16 @@ namespace SuperMarioBros
             frontX = 28 * scaleSize;
             backX = -3 * scaleSize;
 
+            var resourcesPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (@"Resources\"));
+
             // Finds level file (Must be csv, gets name from input)
-            level = FormatCSV(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (@"Levels\" + levelName + ".csv")));
+            level = FormatCSV(Path.Combine(resourcesPath, (@"Levels\" + levelName + ".csv")));
 
             // Loads table of IDs
-            lookUp = FormatCSV(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (@"LookUpSheet\IDList.csv")));
+            lookUp = FormatCSV(Path.Combine(resourcesPath, (@"LookUpSheet\IDList.csv")));
 
             // Loads table of entities
-            entityLookUp = FormatCSV(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (@"LookUpSheet\EntityList.csv")));
+            entityLookUp = FormatCSV(Path.Combine(resourcesPath, (@"LookUpSheet\EntityList.csv")));
 
             // Ensures level starts at correct location
             offset = startOffset;
@@ -319,7 +321,8 @@ namespace SuperMarioBros
         {
             // Font setup (As install isn't possible)
             PrivateFontCollection PFC = new PrivateFontCollection();
-            PFC.AddFontFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Font\Super Mario Bros. NES.ttf"));
+            var resourcesPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (@"Resources\"));
+            PFC.AddFontFile(Path.Combine(resourcesPath, @"Font\Super Mario Bros. NES.ttf"));
             Font font = new Font(PFC.Families[0], 12, FontStyle.Regular);
             ScoreLabel.Font = font;
             scoreDisplay.Font = font;
@@ -1999,7 +2002,13 @@ namespace SuperMarioBros
 
         private string ReadFile(string filepath)
         {
-            using (StreamReader file = new StreamReader(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), filepath), true))
+            string fullPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), filepath);
+            if (!File.Exists(fullPath))
+            {
+                return "0";
+            }
+
+            using (StreamReader file = new StreamReader(fullPath, true))
             {
                 string contents = file.ReadLine();
                 file.Close();
