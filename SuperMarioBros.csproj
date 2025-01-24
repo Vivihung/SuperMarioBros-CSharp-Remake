@@ -16,6 +16,16 @@
     <ApplicationDisplayVersion>9.0.0</ApplicationDisplayVersion>
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
     <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <UseWPF>false</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationVersion>9.0</ApplicationVersion>
+    <ApplicationDisplayVersion>9.0.0</ApplicationDisplayVersion>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,9 +48,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0-preview.1.24080.9" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.0-preview.1.24080.9" />
-    <PackageReference Include="System.Windows.Forms" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+    <PackageReference Include="System.Windows.Forms" Version="9.0.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
