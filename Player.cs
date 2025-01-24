@@ -11,20 +11,12 @@ namespace SuperMarioBros
 {
     class Player
     {
-        protected int posX;
-        protected int posY;
-        protected int sizeX;
-        protected int sizeY;
-        private float fltSpeed;
-        private float fltXVel;
+        protected int posX, posY, sizeX, sizeY;
+        private float fltSpeed, fltXVel;
         private double fltYVel;
         private bool controllable;
-        protected bool isGrounded;
-        protected bool isCrouching;
-        protected bool poleState;
-        protected Rectangle recPosition;
-        protected Rectangle hitBox;
-        protected Rectangle fallDetect;
+        protected bool isGrounded, isCrouching, poleState;
+        protected Rectangle recPosition, hitBox, fallDetect;
         protected Brush drawingBrushColour;
         protected TextureBrush activetBrush;
         protected string direction;

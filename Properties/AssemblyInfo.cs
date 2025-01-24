@@ -13,3 +13,5 @@ using System.Windows.Forms;
 
 // Enable modern Windows features
 [assembly: SupportedOSPlatform("windows10.0.17763.0")]
+[assembly: DisableRuntimeMarshalling]
+[assembly: AssemblyMetadata("IsTrimmable", "True")]
