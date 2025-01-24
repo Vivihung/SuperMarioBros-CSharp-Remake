@@ -398,3 +398,14 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# aider
+.aider*
+
+# hack temp files
+temp*/*
+filtered_report.json
+report.json
+batch.sh
+setup.sh
+test.sh
