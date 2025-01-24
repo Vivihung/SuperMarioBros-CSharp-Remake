@@ -27,6 +27,7 @@
       <enableWindowsFormsHighDpiScaling xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">true</enableWindowsFormsHighDpiScaling>
       <enableWindowsFormsHighDpiScalingMode xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">PerMonitorV2</enableWindowsFormsHighDpiScalingMode>
       <enableWindowsFormsHighDpiScalingMode>PerMonitorV2</enableWindowsFormsHighDpiScalingMode>
+      <enableWindowsFormsHighDpiScalingMode>PerMonitorV2</enableWindowsFormsHighDpiScalingMode>
     </windowsSettings>
   </application>
   <dependency>
