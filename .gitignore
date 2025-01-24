@@ -409,3 +409,4 @@ report.json
 batch.sh
 setup.sh
 test.sh
+setup_*.ps1
