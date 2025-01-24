@@ -9,6 +9,9 @@
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
     <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <EnablePreviewFeatures>true</EnablePreviewFeatures>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <InvariantGlobalization>true</InvariantGlobalization>
     <RootNamespace>SuperMarioBros</RootNamespace>
     <AssemblyName>SuperMarioBros</AssemblyName>
     <FileAlignment>512</FileAlignment>
