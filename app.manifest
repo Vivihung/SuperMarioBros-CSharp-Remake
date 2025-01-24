@@ -25,6 +25,7 @@
       <enableHighDpiSupport xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">true</enableHighDpiSupport>
       <enableWindowsFormsHighDpiAutoResizing xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">true</enableWindowsFormsHighDpiAutoResizing>
       <enableWindowsFormsHighDpiScaling xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">true</enableWindowsFormsHighDpiScaling>
+      <enableWindowsFormsHighDpiScalingMode xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">PerMonitorV2</enableWindowsFormsHighDpiScalingMode>
     </windowsSettings>
   </application>
   <dependency>
