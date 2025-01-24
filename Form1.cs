@@ -204,18 +204,23 @@ namespace SuperMarioBros
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Ensures graphics aren't "jumpy"
+            // Configure high DPI and graphics
             DoubleBuffered = true;
-
-            // Prevents window rescaling
+            AutoScaleMode = AutoScaleMode.Dpi;
+            
+            // Configure window settings
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            StartPosition = FormStartPosition.CenterScreen;
             
-            // Starts event handlers
-            tmrGame.Tick += new EventHandler(onTick);
-            this.KeyDown += new KeyEventHandler(IsKeyDown);
-            this.KeyUp += new KeyEventHandler(IsKeyUp);
-            this.Paint += new PaintEventHandler(onPaint);
+            // Configure event handlers with modern syntax
+            tmrGame.Tick += onTick;
+            KeyDown += IsKeyDown;
+            KeyUp += IsKeyUp;
+            Paint += onPaint;
+            
+            // Configure high DPI awareness
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
             // Timer setup
             tmrGame.Interval = 20;

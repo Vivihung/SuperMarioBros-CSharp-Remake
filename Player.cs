@@ -66,14 +66,12 @@ namespace SuperMarioBros
         public Player(int startPosX, int startPosY, int startSizeX, int startSizeY, bool isStartGrounded, Brush drawingBrushColour, int inputScaleSize, bool controllableInput, int startState, bool debug, int inputPlayerID)
         {
             playerID = inputPlayerID;
-            if(playerID == 0)
+            playerName = playerID switch
             {
-                playerName = "Mario";
-            }
-            if (playerID == 1)
-            {
-                playerName = "Luigi";
-            }
+                0 => "Mario",
+                1 => "Luigi",
+                _ => throw new ArgumentOutOfRangeException(nameof(inputPlayerID), "Invalid player ID")
+            };
 
             // Inital setup
             DebugMode = debug;
