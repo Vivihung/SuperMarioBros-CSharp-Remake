@@ -5,8 +5,11 @@ using System.Windows.Forms;
 [assembly: Guid("a436be31-d254-40e7-b44a-73c6557ea289")]
 
 // Enable Windows Forms theming
-[assembly: System.Windows.Forms.ApplicationVisualStyles]
-[assembly: System.Windows.Forms.ApplicationUseCompatibleTextRendering(false)]
+[assembly: ApplicationVisualStyles]
+[assembly: ApplicationUseCompatibleTextRendering(false)]
 
 // Enable high DPI support
-[assembly: System.Windows.Forms.ApplicationHighDpiMode(System.Windows.Forms.HighDpiMode.PerMonitorV2)]
+[assembly: ApplicationHighDpiMode(HighDpiMode.PerMonitorV2)]
+
+// Enable modern Windows features
+[assembly: SupportedOSPlatform("windows10.0.17763.0")]

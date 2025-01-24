@@ -81,6 +81,27 @@ namespace SuperMarioBros
             isGrounded = isStartGrounded;
             direction = "Right";
 
+            // Initialize properties with modern syntax
+            (posX, posY) = (startPosX, startPosY);
+            (sizeX, sizeY) = (startSizeX, startSizeY);
+            fltSpeed = 0;
+            fltXVel = 0;
+            fltYVel = 0;
+            poleState = false;
+            prefix = "Idle";
+            currentFrame = 0;
+            totalFrames = 0;
+            frameCounter = 0;
+            specialActive = false;
+            specialCounter = 0;
+            specialFrame = 0;
+            starState = 0;
+            starSubCounter = 0;
+            starLength = 0;
+            memoryState = 0;
+            running = false;
+            targetRate = 20;
+
             // Inital setup
             DebugMode = debug;
             scaleSize = inputScaleSize;
