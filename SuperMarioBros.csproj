@@ -10,6 +10,12 @@
     <Nullable>enable</Nullable>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationVersion>9.0</ApplicationVersion>
+    <ApplicationDisplayVersion>9.0.0</ApplicationDisplayVersion>
+    <EnablePreviewFeatures>true</EnablePreviewFeatures>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
-    <PackageReference Include="System.Windows.Forms" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="System.Windows.Forms" Version="9.0.0-preview.1.24080.9" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
