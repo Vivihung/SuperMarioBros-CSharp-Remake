@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <RootNamespace>SuperMarioBros</RootNamespace>
     <AssemblyName>SuperMarioBros</AssemblyName>
     <FileAlignment>512</FileAlignment>
