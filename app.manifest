@@ -22,6 +22,7 @@
       <heapType xmlns="http://schemas.microsoft.com/SMI/2020/WindowsSettings">SegmentHeap</heapType>
       <gdiScaling xmlns="http://schemas.microsoft.com/SMI/2017/WindowsSettings">true</gdiScaling>
       <highDpiAwareness xmlns="http://schemas.microsoft.com/SMI/2023/WindowsSettings">PerMonitorV2, PerMonitorV2, PerMonitorV2</highDpiAwareness>
+      <enableHighDpiSupport xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">true</enableHighDpiSupport>
     </windowsSettings>
   </application>
   <dependency>
