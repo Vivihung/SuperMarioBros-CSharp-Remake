@@ -42,6 +42,7 @@
     <EnableWindowsFormsHighDpiScalingMode>PerMonitorV2</EnableWindowsFormsHighDpiScalingMode>
     <EnableWindowsFormsHighDpiScalingMode>PerMonitorV2</EnableWindowsFormsHighDpiScalingMode>
     <EnableWindowsFormsHighDpiScalingMode>PerMonitorV2</EnableWindowsFormsHighDpiScalingMode>
+    <EnableWindowsFormsHighDpiScalingMode>PerMonitorV2</EnableWindowsFormsHighDpiScalingMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,9 +65,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
-    <PackageReference Include="System.Windows.Forms" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="System.Windows.Forms" Version="9.0.0-preview.1.24080.9" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.5.0" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.0-beta" PrivateAssets="all" />
   </ItemGroup>
