@@ -405,9 +405,6 @@ FodyWeavers.xsd
 # hack temp files
 temp*/*
 filtered_report.json
-report.json
 batch.sh
-setup.sh
-test.sh
 setup*.ps1
 test.ps1
