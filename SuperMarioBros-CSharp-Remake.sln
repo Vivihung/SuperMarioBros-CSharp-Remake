@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarioBros", "SuperMarioBros.csproj", "{F1B79D22-99F8-8899-AD1E-BEC07C01A7E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1B79D22-99F8-8899-AD1E-BEC07C01A7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B79D22-99F8-8899-AD1E-BEC07C01A7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B79D22-99F8-8899-AD1E-BEC07C01A7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B79D22-99F8-8899-AD1E-BEC07C01A7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21B4736F-C50F-44A5-8E67-9BE5E4BC2E53}
+	EndGlobalSection
+EndGlobal
