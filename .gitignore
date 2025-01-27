@@ -406,5 +406,3 @@ FodyWeavers.xsd
 temp*/*
 filtered_report.json
 batch.sh
-setup*.ps1
-test.ps1
