@@ -339,5 +339,5 @@
         private System.Windows.Forms.Label LivesCountText;
         private System.Windows.Forms.Label MarioLife;
     }
+    
 }
-

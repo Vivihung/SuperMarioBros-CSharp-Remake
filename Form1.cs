@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -899,7 +899,7 @@ namespace SuperMarioBros
                 Mario.SetFltYVel(0);
             }
 
-            // If Mario has gotten a life then add to the life counter
+            // If Mario has gotten a life then add him to the life counter
             if (Mario.getLife())
             {
                 Lives++;
@@ -933,7 +933,7 @@ namespace SuperMarioBros
                     Luigi.SetFltYVel(0);
                 }
 
-                // If Luigi has gotten a life then add to the life counter
+                // If Luigi has gotten a life then add him to the life counter
                 if (Luigi.getLife())
                 {
                     Lives++;
@@ -1064,7 +1064,437 @@ namespace SuperMarioBros
                         {
                             if (b.isSolid())
                             {
-                                if (b.getRec().IntersectsWith(entity.GetFallDetectRec()))
+                                if (b.getRec().IntersectsWith(entity.GetRecPosition()))
+                                {
+                                    entity.SetIntersect(true);
+                                }
+                            }
+                        }
+                        if (!entity.GetIntersect() || !entity.getCollide())
+                        {
+                            entity.setGrounded(false);
+                        }
+                        else
+                        {
+                            entity.setGrounded(true);
+                        }
+                    }
+
+                    if (!entity.isActive())
+                    {
+                        toRemoveEntity.Add(entity);
+                    }
+                }
+            }
+            entityList.RemoveAll(toRemoveEntity.Contains);
+            toRemoveEntity.Clear();
+
+            // Handles fall speed of Mario
+            if (!Mario.GetGrounded() && !Mario.GetPoleState())
+            {
+                if (previousJumpHeight > 0)
+                {
+                    // If jump height is positive then Mario is moving up
+                    movingUp = true;
+                    movingDown = false;
+                    previousJumpHeight -= 9.81 * 0.02f * 2;
+                }
+                else
+                {
+                    // If jump height is negative then Mario is moving down
+                    movingDown = true;
+                    movingUp = false;
+                    // Fall speed is double speed
+                    previousJumpHeight -= 9.81 * 0.02f * 4;
+                }
+                Mario.SetFltYVel(previousJumpHeight);
+            }
+            else
+            {
+                Mario.SetFltYVel(0);
+            }
+
+            // If Mario has gotten a life then add him to the life counter
+            if (Mario.getLife())
+            {
+                Lives++;
+                Mario.setLife(false);
+            }
+
+            if(Luigi != null)
+            {
+                // Handles fall speed of Luigi
+                if (!Luigi.GetGrounded() && !Luigi.GetPoleState())
+                {
+                    if (previousJumpHeight2 > 0)
+                    {
+                        // If jump height is positive then Luigi is moving up
+                        movingUp2 = true;
+                        movingDown2 = false;
+                        previousJumpHeight2 -= 9.81 * 0.02f * 2;
+                    }
+                    else
+                    {
+                        // If jump height is negativ then Luigi is moving down
+                        movingDown2 = true;
+                        movingUp2 = false;
+                        // Fall speed is double speed
+                        previousJumpHeight2 -= 9.81 * 0.02f * 4;
+                    }
+                    Luigi.SetFltYVel(previousJumpHeight2);
+                }
+                else
+                {
+                    Luigi.SetFltYVel(0);
+                }
+
+                // If Luigi has gotten a life then add him to the life counter
+                if (Luigi.getLife())
+                {
+                    Lives++;
+                    Luigi.setLife(false);
+                }
+            }
+
+            // Handles transition between stages through pipes
+            if (movingStage)
+            {
+                previousJumpHeight = 0;
+                Mario.SetControllable(false);
+                if (pipeDirection == "Down")
+                {
+                    Mario.SetFltYVel(-5);
+                    if (Mario.GetRecPosition().Y > pipeRec.Y + scaleSize * 2)
+                    {
+                        UndergroundLoad();
+                        Mario.SetControllable(true);
+                        movingStage = false;
+                        pipeDirection = "";
+                    }
+                }
+                else if(pipeDirection == "Right")
+                {
+                    moveRight(Mario);
+                    Mario.SetGrounded(true);
+                    if(Mario.GetRecPosition().X > pipeRec.X + scaleSize * 2)
+                    {
+                        UndergroundLoad();
+                        Mario.SetControllable(true);
+                        movingStage = false;
+                        pipeDirection = "";
+                    }
+                }
+            }
+
+            // Handles X speed of Mario
+            Movement();
+
+            // Notes whether Mario is moving left or right
+            if (movingLeft || movingRight)
+            {
+                Mario.setMoving(true);
+            }
+            else
+            {
+                Mario.setMoving(false);
+            }
+
+            if(Luigi != null)
+            {
+                // Notes whether Luigi is moving left or right
+                if (movingLeft2 || movingRight2)
+                {
+                    Luigi.setMoving(true);
+                }
+                else
+                {
+                    Luigi.setMoving(false);
+                }
+            }
+
+            if (Mario.GetPoleState())
+            {
+                Mario.SetFltYVel(0);
+            }
+
+            // Moves Mario
+            Mario.ChangePosition((int)(Mario.GetRecPosition().X + Mario.GetFltXVel()), (int)(Mario.GetRecPosition().Y - Mario.GetFltYVel()));
+            Mario.SetFltXVel(0);
+            Mario.SetFltYVel(0);
+
+            if(Luigi != null)
+            {
+                Luigi.ChangePosition((int)(Luigi.GetRecPosition().X + Luigi.GetFltXVel()), (int)(Luigi.GetRecPosition().Y - Luigi.GetFltYVel()));
+                Luigi.SetFltXVel(0);
+                Luigi.SetFltYVel(0);
+            }
+
+            // Death barrier underneath the map, so if Mario falls off the stage he dies
+            if(Mario.GetRecPosition().Y > 2000)
+            {
+                Lives--;
+                livesLost = true;
+            }
+
+            if (Luigi != null)
+            {
+                if (Luigi.GetRecPosition().Y > 2000)
+                {
+                    Lives--;
+                    livesLost = true;
+                }
+            }
+
+            // Handles all of Entity movement and collision
+            foreach (Entity entity in entityList)
+            {
+                if (entity.isActive() && entity.GetRecPosition().X > (backX - 20) - entityOffset && entity.GetRecPosition().X < (frontX + 20) - entityOffset)
+                {
+
+                    // Falling distance speed
+                    if (!entity.getGrounded())
+                    {
+                        entity.setFallHeight(entity.getFallHeight() - (9.81f * 0.02f * 4));
+                    }
+                    else
+                    {
+                        entity.setFallHeight(0);
+                        entity.SetFltYVel(0);
+                    }
+                    entity.SetFltYVel(entity.getFallHeight());
+                    // Moves Entity
+                    if (entity.GetFltXVel() < 0)
+                    {
+                        entity.ChangePosition((int)(entity.GetRecPosition().X + Math.Floor(entity.GetFltXVel())), (int)(entity.GetRecPosition().Y - entity.GetFltYVel()));
+                    }
+                    else
+                    {
+                        entity.ChangePosition((int)(entity.GetRecPosition().X + Math.Round(entity.GetFltXVel())), (int)(entity.GetRecPosition().Y - entity.GetFltYVel()));
+                    }
+
+                    if (entity.checkJump() && !entity.getStatic())
+                    {
+                        entity.SetIntersect(false);
+                        foreach (Block b in levelBlocks)
+                        {
+                            if (b.isSolid())
+                            {
+                                if (b.getRec().IntersectsWith(entity.GetRecPosition()))
+                                {
+                                    entity.SetIntersect(true);
+                                }
+                            }
+                        }
+                        if (!entity.GetIntersect() || !entity.getCollide())
+                        {
+                            entity.setGrounded(false);
+                        }
+                        else
+                        {
+                            entity.setGrounded(true);
+                        }
+                    }
+
+                    if (!entity.isActive())
+                    {
+                        toRemoveEntity.Add(entity);
+                    }
+                }
+            }
+            entityList.RemoveAll(toRemoveEntity.Contains);
+            toRemoveEntity.Clear();
+
+            // Handles fall speed of Mario
+            if (!Mario.GetGrounded() && !Mario.GetPoleState())
+            {
+                if (previousJumpHeight > 0)
+                {
+                    // If jump height is positive then Mario is moving up
+                    movingUp = true;
+                    movingDown = false;
+                    previousJumpHeight -= 9.81 * 0.02f * 2;
+                }
+                else
+                {
+                    // If jump height is negative then Mario is moving down
+                    movingDown = true;
+                    movingUp = false;
+                    // Fall speed is double speed
+                    previousJumpHeight -= 9.81 * 0.02f * 4;
+                }
+                Mario.SetFltYVel(previousJumpHeight);
+            }
+            else
+            {
+                Mario.SetFltYVel(0);
+            }
+
+            // If Mario has gotten a life then add him to the life counter
+            if (Mario.getLife())
+            {
+                Lives++;
+                Mario.setLife(false);
+            }
+
+            if(Luigi != null)
+            {
+                // Handles fall speed of Luigi
+                if (!Luigi.GetGrounded() && !Luigi.GetPoleState())
+                {
+                    if (previousJumpHeight2 > 0)
+                    {
+                        // If jump height is positive then Luigi is moving up
+                        movingUp2 = true;
+                        movingDown2 = false;
+                        previousJumpHeight2 -= 9.81 * 0.02f * 2;
+                    }
+                    else
+                    {
+                        // If jump height is negativ then Luigi is moving down
+                        movingDown2 = true;
+                        movingUp2 = false;
+                        // Fall speed is double speed
+                        previousJumpHeight2 -= 9.81 * 0.02f * 4;
+                    }
+                    Luigi.SetFltYVel(previousJumpHeight2);
+                }
+                else
+                {
+                    Luigi.SetFltYVel(0);
+                }
+
+                // If Luigi has gotten a life then add him to the life counter
+                if (Luigi.getLife())
+                {
+                    Lives++;
+                    Luigi.setLife(false);
+                }
+            }
+
+            // Handles transition between stages through pipes
+            if (movingStage)
+            {
+                previousJumpHeight = 0;
+                Mario.SetControllable(false);
+                if (pipeDirection == "Down")
+                {
+                    Mario.SetFltYVel(-5);
+                    if (Mario.GetRecPosition().Y > pipeRec.Y + scaleSize * 2)
+                    {
+                        UndergroundLoad();
+                        Mario.SetControllable(true);
+                        movingStage = false;
+                        pipeDirection = "";
+                    }
+                }
+                else if(pipeDirection == "Right")
+                {
+                    moveRight(Mario);
+                    Mario.SetGrounded(true);
+                    if(Mario.GetRecPosition().X > pipeRec.X + scaleSize * 2)
+                    {
+                        UndergroundLoad();
+                        Mario.SetControllable(true);
+                        movingStage = false;
+                        pipeDirection = "";
+                    }
+                }
+            }
+
+            // Handles X speed of Mario
+            Movement();
+
+            // Notes whether Mario is moving left or right
+            if (movingLeft || movingRight)
+            {
+                Mario.setMoving(true);
+            }
+            else
+            {
+                Mario.setMoving(false);
+            }
+
+            if(Luigi != null)
+            {
+                // Notes whether Luigi is moving left or right
+                if (movingLeft2 || movingRight2)
+                {
+                    Luigi.setMoving(true);
+                }
+                else
+                {
+                    Luigi.setMoving(false);
+                }
+            }
+
+            if (Mario.GetPoleState())
+            {
+                Mario.SetFltYVel(0);
+            }
+
+            // Moves Mario
+            Mario.ChangePosition((int)(Mario.GetRecPosition().X + Mario.GetFltXVel()), (int)(Mario.GetRecPosition().Y - Mario.GetFltYVel()));
+            Mario.SetFltXVel(0);
+            Mario.SetFltYVel(0);
+
+            if(Luigi != null)
+            {
+                Luigi.ChangePosition((int)(Luigi.GetRecPosition().X + Luigi.GetFltXVel()), (int)(Luigi.GetRecPosition().Y - Luigi.GetFltYVel()));
+                Luigi.SetFltXVel(0);
+                Luigi.SetFltYVel(0);
+            }
+
+            // Death barrier underneath the map, so if Mario falls off the stage he dies
+            if(Mario.GetRecPosition().Y > 2000)
+            {
+                Lives--;
+                livesLost = true;
+            }
+
+            if (Luigi != null)
+            {
+                if (Luigi.GetRecPosition().Y > 2000)
+                {
+                    Lives--;
+                    livesLost = true;
+                }
+            }
+
+            // Handles all of Entity movement and collision
+            foreach (Entity entity in entityList)
+            {
+                if (entity.isActive() && entity.GetRecPosition().X > (backX - 20) - entityOffset && entity.GetRecPosition().X < (frontX + 20) - entityOffset)
+                {
+
+                    // Falling distance speed
+                    if (!entity.getGrounded())
+                    {
+                        entity.setFallHeight(entity.getFallHeight() - (9.81f * 0.02f * 4));
+                    }
+                    else
+                    {
+                        entity.setFallHeight(0);
+                        entity.SetFltYVel(0);
+                    }
+                    entity.SetFltYVel(entity.getFallHeight());
+                    // Moves Entity
+                    if (entity.GetFltXVel() < 0)
+                    {
+                        entity.ChangePosition((int)(entity.GetRecPosition().X + Math.Floor(entity.GetFltXVel())), (int)(entity.GetRecPosition().Y - entity.GetFltYVel()));
+                    }
+                    else
+                    {
+                        entity.ChangePosition((int)(entity.GetRecPosition().X + Math.Round(entity.GetFltXVel())), (int)(entity.GetRecPosition().Y - entity.GetFltYVel()));
+                    }
+
+                    if (entity.checkJump() && !entity.getStatic())
+                    {
+                        entity.SetIntersect(false);
+                        foreach (Block b in levelBlocks)
+                        {
+                            if (b.isSolid())
+                            {
+                                if (b.getRec().IntersectsWith(entity.GetRecPosition()))
                                 {
                                     entity.SetIntersect(true);
                                 }
@@ -1270,7 +1700,7 @@ namespace SuperMarioBros
                 // Handling hitting the bottom of the block
                 if ((b.isSolid() || b.getSemiSolid()) && Mario.GetHitBox().Top < b.getRec().Bottom && Mario.GetHitBox().Top > b.getRec().Bottom - (b.getSize() * intersectStrictness) && previousJumpHeight > 0 && b.getRec().IntersectsWith(Mario.GetHitBox()))
                 {
-                    Mario.ChangePosition(Mario.GetRecPosition().X, Mario.GetRecPosition().Y - (Mario.GetRecPosition().Y - (b.getRec().Bottom)));
+                    Mario.ChangePosition(Mario.GetRecPosition().X, Mario.GetRecPosition().Y - ((Mario.GetRecPosition().Y + Mario.GetSizeY()) - b.getRec().Y));
                     previousJumpHeight = 0;
                     if (b.getIsContainer())
                     {
